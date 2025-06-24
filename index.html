@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What to Wear? 🤔</title>
+    <!-- Link to Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link to custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Font - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="font-inter bg-gray-100 flex items-center justify-center min-h-screen p-4">
+    <div class="app-container bg-white p-8 rounded-lg shadow-xl w-full max-w-md">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">What to Wear? 🤔</h1>
+
+
+        <!-- Input Section -->
+        <div class="input-section mb-8">
+            <div class="mb-4">
+                <label for="weather" class="block text-gray-700 text-sm font-medium mb-2">Weather:</label>
+                <select id="weather" class="block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out">
+                    <option value="" disabled selected>Select weather...</option>
+                    <option value="sunny">Sunny ☀️</option>
+                    <option value="rainy">Rainy 🌧️</option>
+                    <option value="cold">Cold 🥶</option>
+                    <option value="hot">Hot 🔥</option>
+                </select>
+            </div>
+
+
+            <div class="mb-4">
+                <label for="event" class="block text-gray-700 text-sm font-medium mb-2">Event:</label>
+                <select id="event" class="block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 ease-in-out">
+                    <option value="" disabled selected>Select event...</option>
+                    <option value="interview">Interview 👔</option>
+                    <option value="school">School 🎒</option>
+                    <option value="date">Date 🥰</option>
+                    <option value="party">Party 🎉</option>
+                    <option value="home">Home 🏠</option>
+                </select>
+            </div>
+
+
+            <div class="mb-6">
+                <label for="mood" class="block text-gray-700 text-sm font-medium mb-2">Mood:</label>
+                <select id="mood" class="block w-full p-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus="ring-blue-500 focus:border-transparent transition duration-200 ease-in-out">
+                    <option value="" disabled selected>Select mood...</option>
+                    <option value="energetic">Energetic 🚀</option>
+                    <option value="tired">Tired 😴</option>
+                    <option value="sad">Sad 😔</option>
+                    <option value="sexy">Sexy 😉</option>
+                    <option value="neutral">Neutral 😐</option>
+                </select>
+            </div>
+
+
+            <!-- Wardrobe Integration Checkbox -->
+            <div class="flex items-center mb-6">
+                <input type="checkbox" id="wardrobeIntegration" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                <label for="wardrobeIntegration" class="ml-2 block text-sm text-gray-900">
+                    Use my wardrobe inventory
+                </label>
+            </div>
+
+
+            <button id="getSuggestionBtn" class="w-full bg-blue-600 text-white p-3 rounded-md font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105">
+                Get Outfit Suggestion
+            </button>
+        </div>
+
+
+        <!-- Message Box for Errors/Info -->
+        <div id="messageBox" class="hidden bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-6" role="alert">
+            <span class="block sm:inline" id="messageText"></span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer" id="closeMessageBtn">
+                <svg class="fill-current h-6 w-6 text-yellow-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15L6.22 7.54a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.15 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+            </span>
+        </div>
+
+
+        <!-- Outfit Suggestion Section -->
+        <div id="outfitSuggestion" class="hidden text-center">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Your Perfect Outfit! ✨</h2>
+            <img id="outfitImage" src="https://placehold.co/300x300/e0e0e0/000000?text=Outfit" alt="Outfit Suggestion" class="w-48 h-48 object-cover rounded-md mx-auto mb-4 shadow-lg">
+            <p id="outfitDescription" class="text-gray-700 text-lg mb-6 leading-relaxed"></p>
+
+
+            <div class="flex justify-center space-x-4">
+                <button id="tryAgainBtn" class="bg-gray-200 text-gray-800 p-3 rounded-md font-semibold hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105">
+                    Try Again 🔄
+                </button>
+                <button id="saveBtn" class="bg-green-500 text-white p-3 rounded-md font-semibold hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 ease-in-out transform hover:scale-105">
+                    Save Outfit 💾
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Link to custom JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
